@@ -6,7 +6,7 @@ tags:
   - Cpp
   - GLFW
 category: 游戏引擎
-description: 基于 Cherno Hazel 引擎的入门教学，涵盖引擎核心概念、项目搭建、动态链接实践与链接方式对比，适合游戏开发新手
+description: 对 GLFW 窗口库抽象封装，实现跨平台窗口创建、管理与事件响应
 ---
 ---
 
@@ -267,7 +267,7 @@ private:
 };
 ```
 
-```
+```cpp
 $Application.cpp
 
 void Application::Run()

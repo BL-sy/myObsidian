@@ -1,5 +1,5 @@
 ---
-title: ImGui：Docking与Viewport
+title: ImGui
 date: 2025-11-09
 tags:
   - 自研游戏引擎
@@ -7,7 +7,7 @@ tags:
   - ImGui
   - StaticLib
 category: 游戏引擎
-description: 基于 Cherno Hazel 引擎的入门教学，涵盖引擎核心概念、项目搭建、动态链接实践与链接方式对比，适合游戏开发新手
+description: 集成 ImGui Docking 扩展实现界面停靠与视口管理，通过静态编译优化工程链接
 ---
 ---
 

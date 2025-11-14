@@ -7,7 +7,7 @@ tags:
   - OpenGL
   - glad
 category: 游戏引擎
-description: 基于 Cherno Hazel 引擎的入门教学，涵盖引擎核心概念、项目搭建、动态链接实践与链接方式对比，适合游戏开发新手
+description: 集成 Glad 库实现 OpenGL 函数动态加载与跨版本兼容，为渲染模块提供底层函数支持
 ---
 ---
 
