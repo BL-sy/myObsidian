@@ -1,0 +1,13 @@
+{
+  "baseFontSizeAction": true,
+  "nativeMenus": true,
+  "baseFontSize": 16,
+  "cssTheme": "Border",
+  "monospaceFontFamily": "",
+  "theme": "system",
+  "enabledCssSnippets": [
+    "code"
+  ],
+  "accentColor": "",
+  "showRibbon": true
+}

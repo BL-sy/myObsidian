@@ -1,0 +1,20 @@
+filters:
+  and:
+    - file.hasTag("自研游戏引擎")
+    - file.basename != "模版"
+views:
+  - type: table
+    name: 表格
+    order:
+      - file.name
+      - file.tags
+      - date
+      - title
+    sort:
+      - property: date
+        direction: ASC
+  - type: cards
+    name: 视图
+    sort:
+      - property: file.ctime
+        direction: ASC
