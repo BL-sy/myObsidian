@@ -4,6 +4,8 @@ date: 2025-11-10
 tags:
   - 自研游戏引擎
   - Cpp
+  - OpenGL
+  - glad
 category: 游戏引擎
 description: 编写 OpenGL 着色器程序实现三角形渲染，深入图形渲染管线与着色器技术
 ---
