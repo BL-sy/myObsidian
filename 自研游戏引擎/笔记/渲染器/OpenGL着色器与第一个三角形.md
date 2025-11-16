@@ -6,6 +6,7 @@ tags:
   - Cpp
   - OpenGL
   - glad
+  - Shader
 category: 游戏引擎
 description: 编写 OpenGL 着色器程序实现三角形渲染，深入图形渲染管线与着色器技术
 ---
@@ -426,7 +427,7 @@ namespace Hazel {
 
 5. **ImGui 渲染 + 缓冲区交换**：保持原有逻辑，最终将渲染结果显示到窗口。
 
-# 五、运行效果
+# 六、运行效果
 
 编译运行后，窗口将显示一个**渐变三角形**：
 

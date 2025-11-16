@@ -10,11 +10,23 @@ description: 对 OpenGL 渲染 API 抽象，实现渲染逻辑与底层 API 解�
 ---
 
 
+这一课的目的，是判断Hazel引擎具体该怎么设计渲染相关的API，让它可以支持多个平台的渲染工作。
+
 # 一、抽象目标与核心思路
 
 本次渲染器 API 抽象的核心目标是 **解耦上层逻辑与 OpenGL 依赖**，通过 “抽象基类 + 平台实现 + 工厂函数” 的设计，为后续跨平台扩展（如 Vulkan/DirectX）奠定基础。核心思路遵循 “依赖倒置原则”：上层代码仅依赖统一的抽象接口，底层平台实现（如 OpenGL）适配抽象基类，避免直接耦合。
 
 # 二、已实现的核心抽象组件
+
+## Compile Time Or Runtime
+
+关于游戏引擎Hazel，它需要可以根据不同的平台使用不同的渲染接口，比如DirectX、OpenGL、Metal或者Vulkan等。目前有两种做法。
+
+- 第一种是在**Compile Time**决定Hazel引擎使用哪种渲染API，具体是通过**不同的宏**来实现的，比如`USE_OPENGL_RENDERER`这些宏，然后根据这些宏的设定，对引擎代码进行编译，就只会编译OpenGL相关的渲染代码，如果我想要OpenGL来实现绘制，就使用对应的宏构建OpenGL的代码，如果想用Vulkan就用Vulkan对应的宏来构建Vulkan的代码，总之最后的构建出来的引擎就**只支持一个平台**的渲染API。
+
+  这样做的坏处时，一次构建只能用一个平台的渲染API，而且每次**切换渲染的API时，都需要重新构建相关代码**，这对开发者来说是很不友好的，如果开发者要对比两个平台的画面效果，那么要反复切换宏，然后rebuild，这很麻烦。而好处就是，引擎在运行过程**不必花时间去判断**到底用哪个平台的渲染API，所以runtime下效率会更快
+
+- 第二种是在**Runtime**决定使用哪种渲染API，有人之前用if条件去为每一个渲染的API做一个条件判断，这样做工程量很大，也有点傻，这里建议的做法是利用**多态(虚函数)**，比如说有Shader类，那么就有OpenGLShader和DirectXShader这样各平台的派生类，并使用`GetAPI()`决定使用的API。
 
 ## 2.1 渲染 API 标识与全局管理：Renderer 类 + RendererAPI 枚举
 
@@ -182,7 +194,6 @@ void OpenGLIndexBuffer::UnBind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0
 ## 设计亮点
 
 * 平台细节完全封装：OpenGL 原生调用仅存在于`Platform/OpenGL`目录下，上层代码无感知；
-* 资源自动释放：析构函数中调用`glDeleteBuffers`释放 GPU 资源，避免内存泄漏；
 * 索引数量缓存：`m_Count`存储索引总数，避免上层重复计算`sizeof(indices)/sizeof(uint32_t)`。
 
 ## 2.4 工厂函数实现：跨平台实例创建入口
@@ -225,14 +236,12 @@ IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
 ## 设计亮点
 
 * 扩展成本低：后续添加 Vulkan 实现时，仅需在`switch`中新增分支（`case RendererAPI::Vulkan: return new VulkanVertexBuffer(...)`）；
-* 错误防护：通过`HZ_CORE_ASSERT`拦截不支持的 API 或未知 API，便于调试。
 
 ## 2.5 Application 上层代码适配：脱离 OpenGL 原生调用
 
 ## 核心修改
 
 * 替换原生`glGenBuffers`/`glBindBuffer`等调用，改为使用抽象接口创建缓冲；
-* 通过智能指针（`std::unique_ptr`）管理缓冲实例生命周期。
 
 ## 关键代码总结
 
@@ -264,11 +273,6 @@ glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices)/sizeof(uint32_t)));
 ```
 
-## 适配亮点
-
-* 脱离平台依赖：创建缓冲的逻辑从 “直接调用 OpenGL 函数” 改为 “调用抽象接口”，上层与 OpenGL 解耦；
-* 资源管理自动化：使用`std::unique_ptr`管理`VertexBuffer`/`IndexBuffer`实例，自动释放资源，避免内存泄漏。
-
 # 三、当前抽象的核心价值
 
 ## 3.1 解耦上层与渲染 API
@@ -294,16 +298,6 @@ Application 等上层模块不再直接依赖`glCreateBuffers`、`glBindBuffer`�
 * 统一的接口设计（`Bind`/`UnBind`/`Create`）降低上层学习和使用成本；
 
 * 错误防护机制（`HZ_CORE_ASSERT`）减少因 API 使用错误导致的崩溃。
-
-# 四、后续扩展方向（基于当前抽象）
-
-1. 完成`VertexArray`（顶点数组）抽象：替换 Application 中残留的`glGenVertexArrays`等原生调用，实现 VAO 的跨平台支持；
-
-2. 扩展缓冲数据类型：支持动态缓冲（`GL_DYNAMIC_DRAW`）、顶点颜色 / 纹理坐标等复杂数据；
-
-3. 完善错误处理：在平台实现中添加更细致的错误捕获（如`glGetError`），提升调试效率；
-
-4. 支持多渲染 API 动态切换：通过配置文件或编译宏，无需修改代码即可切换渲染后端。
 
 # 总结
 

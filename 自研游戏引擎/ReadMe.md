@@ -1,6 +1,8 @@
 
 基于 Hazel Engine（TheCherno 开源引擎）的学习型自研引擎，全程跟随 TheCherno [《Game Engine Series》](https://www.youtube.com/watch?v=JxIZbV_XjAs&list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT)视频教程实践，旨在深入理解游戏引擎核心架构与底层实现逻辑，沉淀 C++ 图形编程、渲染管线、引擎架构设计等技术经验。​
 
+---
+
 ## 项目定位​
 
 - 「学习复现」：完整复现 Hazel 引擎核心模块，吃透游戏引擎底层原理​
@@ -45,6 +47,7 @@
 
 - 每完成一个核心模块，会同步更新笔记与代码注释
 ​
+---
 
 [Hazel github](https://github.com/TheCherno/Hazel)
 
