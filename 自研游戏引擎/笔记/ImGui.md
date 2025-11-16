@@ -11,8 +11,8 @@ description: 集成 ImGui 即时模式 GUI 库，实现引擎调试界面与参�
 
 
 
-## [[ImGui渲染与ImGui事件]]
-## [[Docking与Viewport（Hazel的静态编译）]]
+## [ImGui渲染与ImGui事件](ImGui/ImGui渲染与ImGui事件.md)
+## [Docking与Viewport（Hazel的静态编译）](ImGui/Docking与Viewport（Hazel的静态编译）.md)
 
 
 
