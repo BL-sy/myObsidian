@@ -140,8 +140,7 @@ public:
 };
 ```
 
-![[027.webp]]
-
+![](../../assets/027.webp)
 
 已完成 ImGui 层渲染后，事件处理是核心下一步 —— 需将引擎的鼠标、键盘、文本输入等事件传递给 ImGui，同时实现 “UI 捕获事件” 逻辑（比如点击 UI 时，游戏逻辑不再响应相同事件），确保交互体验符合预期。
 
@@ -316,11 +315,9 @@ bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent& e)
 2. 键盘交互：
 - 在 ImGui 输入框中输入英文（中文），文本正常显示（证明文本输入事件生效）；
 
-
-
 # 四、bug记录及解决方案
 
-![[028.webp]]
+![](../../assets/028.webp)
 
 这个错误是指Sandbox项目找不到imgui头文件，错误原因:
 
