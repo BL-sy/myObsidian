@@ -29,7 +29,7 @@
 
 	- ImGui（调试面板与编辑器界面）​
 
-- 开发环境：Visual Studio 2022（Windows 平台）​
+- 开发环境：Visual Studio 2022/2026（Windows 平台）​
 
 ## 学习笔记说明​
 
