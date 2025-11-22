@@ -440,3 +440,7 @@ namespace Hazel {
 * 三角形内部颜色平滑过渡，体现片段着色器的插值特性。
 
 ![](../../assets/032.webp)
+
+这次没有进行Shader抽象，将所有OpenGL方法都写在Shader中，Shader基类抽象见：
+
+[着色器抽象](着色器抽象.md)
