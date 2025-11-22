@@ -5,7 +5,7 @@ tags:
   - 自研游戏引擎
   - Cpp
 category: 游戏引擎
-description: 对 OpenGL 渲染 API 抽象，实现渲染逻辑与底层 API 解耦，支持多 API 扩展兼容
+description: 对渲染 API 抽象，实现渲染逻辑与底层 API 解耦，支持多 API 扩展兼容
 ---
 ---
 

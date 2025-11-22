@@ -1,5 +1,5 @@
 ---
-title: GLM数学库
+title: 摄像机
 date: 2025-11-05
 tags:
   - 自研游戏引擎
